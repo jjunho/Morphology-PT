@@ -2,12 +2,11 @@
 
 module Main where
 
-import qualified Data.Text as T
-import qualified Data.Text.IO as TIO
-
-import Nominal2
-
-type Text = T.Text
+import qualified Data.Text          (Text)
+import qualified Data.Text          as T
+import qualified Data.Text.IO       as TIO
+import qualified NLP.Morphology.PT  as PT
+import qualified NLP.Morphology.Txt
 
 main :: IO ()
-main = TIO.putStrLn $ tshow $ mkNounM "bolo"
+main = putStrLn "not yet"

@@ -2,17 +2,25 @@
 
 module NLP.Morphology.PT.Common where
 
-import           Data.Text (Text)
+import           Data.Text          (Text)
+import qualified Data.Text          as T
+import           NLP.Morphology.Txt
 
 data Gender
   = MSC
   | FEM
   deriving (Show, Eq, Enum, Bounded)
 
+instance Txt Gender where
+  txt = tshow
+
 data Number
   = SG
   | PL
   deriving (Show, Eq, Enum, Bounded)
+
+instance Txt Number where
+  txt = tshow
 
 data GenderNumber
   = MS
@@ -30,9 +38,17 @@ data Person
   | P6
   deriving (Show, Eq, Enum, Bounded)
 
+instance Txt Person where
+  txt p6 = (\(p, n) -> T.intercalate "/" [tshow p, tshow n]) $ fromP6 p6
+
 data Root
   = Root Text
   deriving (Show, Eq)
+
+instance Txt Root where
+  txt (Root r) = case r of
+    "" -> "∅"
+    _  -> T.toUpper r
 
 data Affix
   = Prefix Text
@@ -47,6 +63,11 @@ data ThematicVowel
   | U'
   | Z'
   deriving (Show, Eq, Enum, Bounded)
+
+instance Txt ThematicVowel where
+  txt tv = case tv of
+    Z' -> "∅"
+    _  -> T.init $ tshow tv
 
 toTV :: Text -> ThematicVowel
 toTV x = case x of

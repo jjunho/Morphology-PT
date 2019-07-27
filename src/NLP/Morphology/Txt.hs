@@ -4,6 +4,8 @@ import           Data.Text    (Text)
 import qualified Data.Text    as T
 import qualified Data.Text.IO as TIO
 
+type Citation = Text
+
 tshow :: Show a => a -> Text
 tshow = T.pack . show
 

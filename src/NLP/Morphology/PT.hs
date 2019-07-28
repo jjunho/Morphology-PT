@@ -7,6 +7,8 @@ Maintainer  : jjunho@gmail.com
 Stability   : experimental
 Portability : POSIX
 
+Haddock documentation: <https://jjunho.github.io/Morphology-PT>
+
 If you are using only Portuguese:
 
 > import qualified Data.Text         (Text)

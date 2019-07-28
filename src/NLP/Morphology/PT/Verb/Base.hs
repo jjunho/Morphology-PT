@@ -58,7 +58,7 @@ data VStructure
   deriving (Show, Eq)
 
 instance Txt VStructure where
-  txt (Prs (Root r) t m p) = T.intercalate "-" [r, txt t, txt m, txt p]
+  txt (Prs (Root r) t m p) = T.intercalate "-" ["√" <> T.toUpper r, txt t, txt m, txt p]
 
 toRoot :: Citation -> Root
 toRoot = Root . T.init . T.init

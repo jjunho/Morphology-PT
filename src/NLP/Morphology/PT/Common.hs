@@ -105,3 +105,14 @@ toP6 (p, n) = case (p, n) of
   (P2, PL) -> P5
   (P3, PL) -> P6
   (_, SG)  -> p
+
+class Deep a where
+  deep :: a -> [Text]
+  deepTxt :: a -> Text
+
+class Shallow a where
+  shallow :: a -> [Text]
+  shallowTxt :: a -> Text
+
+class Orth a where
+  orth :: a -> Text

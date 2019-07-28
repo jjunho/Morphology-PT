@@ -4,11 +4,13 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: bf0a850294b59af34a22fb303e01e8f79ae721dde2c84125aca089aab0690d3e
+-- hash: 7b78e3988c8f726daf96fd8e96ed11aec2acd5bb9d1a8a326e34e27048416a59
 
 name:           Morphology-PT
 version:        0.1.0.0
+synopsis:       Morphology of the Portuguese language
 description:    Please see the README on GitHub at <https://github.com/jjunho/Morphology-PT#readme>
+category:       Linguistics
 homepage:       https://github.com/jjunho/Morphology-PT#readme
 bug-reports:    https://github.com/jjunho/Morphology-PT/issues
 author:         Juliano Paiva Junho
@@ -36,6 +38,7 @@ library
       NLP.Morphology.PT.Verb
       NLP.Morphology.PT.Verb.Base
       NLP.Morphology.PT.Verb.Irreg
+      NLP.Morphology.PT.Verb.Morphemes
       NLP.Morphology.PT.Verb.Reg
       NLP.Morphology.Txt
   other-modules:

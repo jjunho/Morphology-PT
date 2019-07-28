@@ -6,6 +6,8 @@ import           Data.Text          (Text)
 import qualified Data.Text          as T
 import           NLP.Morphology.Txt
 
+type Citation = Text
+
 data Gender
   = MSC
   | FEM
@@ -116,3 +118,6 @@ class Shallow a where
 
 class Orth a where
   orth :: a -> Text
+
+range :: (Bounded a, Enum a) => [a]
+range = [minBound .. maxBound]

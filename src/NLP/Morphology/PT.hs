@@ -62,6 +62,13 @@ module NLP.Morphology.PT (
   , pronoun
   , determiner
 
+  -- * Morphological transformations
+  , deep
+  , deepTxt
+  , shallow
+  , shallowTxt
+  , orth
+
   -- * Formatting & IO
   , txt
   -- | Formats the data in order to print.
@@ -80,10 +87,7 @@ module NLP.Morphology.PT (
   -- √FAL-A-IPRS-P1/SG
   ) where
 
-import           NLP.Morphology.PT.Common  (Gender (..), Number (..),
-                                            Person (..))
-import           NLP.Morphology.PT.Nominal (adjective, determiner, noun,
-                                            pronoun)
-import           NLP.Morphology.PT.Verb    (MoodTense (..), PersonNumber (..),
-                                            impersonal, participle, personal)
-import           NLP.Morphology.Txt        (putTxt, putTxtLn, txt)
+import           NLP.Morphology.PT.Common
+import           NLP.Morphology.PT.Nominal
+import           NLP.Morphology.PT.Verb
+import           NLP.Morphology.Txt

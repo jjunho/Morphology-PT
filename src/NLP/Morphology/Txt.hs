@@ -4,8 +4,6 @@ import           Data.Text    (Text)
 import qualified Data.Text    as T
 import qualified Data.Text.IO as TIO
 
-type Citation = Text
-
 tshow :: Show a => a -> Text
 tshow = T.pack . show
 
@@ -17,3 +15,6 @@ putTxtLn = TIO.putStrLn . txt
 
 class Txt a where
   txt :: a -> Text
+
+instance Txt Text where
+  txt = id

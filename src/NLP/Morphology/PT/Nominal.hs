@@ -6,9 +6,9 @@ module NLP.Morphology.PT.Nominal
   )
   where
 
-import           Data.Text                   (Text)
-import qualified Data.Text                   as T
-import qualified Data.Text.IO                as TIO
+import           Data.Text                      (Text)
+import qualified Data.Text                      as T
+import qualified Data.Text.IO                   as TIO
 import           NLP.Morphology.PT.Common
 import           NLP.Morphology.PT.Nominal.Base
 import           NLP.Morphology.Txt

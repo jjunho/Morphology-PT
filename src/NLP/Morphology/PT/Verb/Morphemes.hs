@@ -1,13 +1,13 @@
-{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module NLP.Morphology.PT.Verb.Morphemes where
 
 import           Data.Text                   (Text)
 import qualified Data.Text                   as T
-import           NLP.Morphology.Txt
 import           NLP.Morphology.PT.Common
 import           NLP.Morphology.PT.Verb.Base
+import           NLP.Morphology.Txt
 
 data Morpheme
   = A
@@ -22,12 +22,14 @@ data Morpheme
   | O
   | R
   | RA
+  | RE
   | S
   | SE
   | STE
   | STES
   | U
   | VA
+  | VE
   | Z
   | MRoot Text
   | Lit Text
@@ -57,6 +59,9 @@ instance Morph MoodTense where
     GER  -> NDO
     PRT  -> D
     _    -> Z
+  allo1 m = case m of
+    IIPF -> A
+    _    -> morph m
 
 instance Morph PersonNumber where
   morph p = case p of
@@ -75,7 +80,7 @@ instance Morph PersonNumber where
     P1 -> O
     P5 -> DES
 
-instance Morph Gender where 
+instance Morph Gender where
   morph MSC = O
   morph FEM = A
 
@@ -85,16 +90,21 @@ instance Morph Number where
 
 instance Txt Morpheme where
   txt m = case m of
-    Z -> "∅"
+    Z       -> "∅"
     MRoot r -> T.toUpper r
-    _ -> tshow m
+    _       -> tshow m
 
 morphs :: VStructure -> [Morpheme]
 morphs v = case v of
-  Imp r t m ->     [morph r, morph t, morph m]
-  Prs r t m p ->   [morph r, morph t, morph m, morph p]
+  Imp r t m     ->     [morph r, morph t, morph m]
+  Prs r t m p   ->   [morph r, morph t, morph m, morph p]
   Prt r t m g n -> [morph r, morph t, morph m, morph g, morph n]
 
 instance Txt [Morpheme] where
   txt ms = T.intercalate "-" (txt <$> ms)
   -- txt = fix ((T.intercalate "-" .) . (<$>))
+
+aToE :: Morpheme -> Morpheme
+aToE A  = E
+aToE VA = VE
+aToE RA = RE

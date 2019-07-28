@@ -2,7 +2,6 @@
 
 module NLP.Morphology.PT.Verb.Base where
 
-import           Data.Text                (Text)
 import qualified Data.Text                as T
 import           NLP.Morphology.PT.Common
 import           NLP.Morphology.Txt

@@ -7,6 +7,9 @@ import qualified Data.Text.IO as TIO
 tshow :: Show a => a -> Text
 tshow = T.pack . show
 
+tread :: Read a => Text -> a
+tread = read . T.unpack
+
 putTxt :: Txt a => a -> IO ()
 putTxt = TIO.putStr . txt
 

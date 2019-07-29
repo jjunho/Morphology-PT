@@ -32,30 +32,33 @@ Don't forget to set `OverloadedStrings` and/or use the `LANGUAGE` pragma:
 
 module NLP.Morphology.PT (
   -- * Types
-    MoodTense(..)
-  , PersonNumber(..)
+    Personal(..)
+  , Impersonal(..)
+  , Nominal(..)
+  , Person(..)
   , Gender(..)
   , Number(..)
-  , Person(..)
 
   -- * Verbs
-  , impersonal
-  -- | Creates an impersonal `VStructure` with the citation form of the verb.
-  -- The `MoodTense` applicable is `INF` or `GER`
-  --
-  -- >>> impersonal "falar" INF
-  -- Imp {root = Root "fal", thematicVowel = A', moodTense = INF}
-  , personal
-  -- | Creates a personal `VStructure` with the citation form of the verb.
-  --
-  -- >>> personal "falar" IPRS P1
-  -- Prs {root = Root "fal", thematicVowel = A', moodTense = IPRS, personNumber = P1}
-  , participle
-  -- | Creates a participle `VStructure` with the citation form of the verb.
-  --
-  -- >>> participle "falar" MSC SG
-  -- Prt {root = Root "fal", thematicVowel = A', moodTense = PRT, gender = MSC, number = SG}
+  -- , impersonal
+  -- -- | Creates an impersonal `VStructure` with the citation form of the verb.
+  -- -- The `MoodTense` applicable is `INF` or `GER`
+  -- --
+  -- -- >>> impersonal "falar" INF
+  -- -- Imp {root = Root "fal", thematicVowel = A', moodTense = INF}
+  -- , personal
+  -- -- | Creates a personal `VStructure` with the citation form of the verb.
+  -- --
+  -- -- >>> personal "falar" IPRS P1
+  -- -- Prs {root = Root "fal", thematicVowel = A', moodTense = IPRS, personNumber = P1}
+  -- , participle
+  -- -- | Creates a participle `VStructure` with the citation form of the verb.
+  -- --
+  -- -- >>> participle "falar" MSC SG
+  -- -- Prt {root = Root "fal", thematicVowel = A', moodTense = PRT, gender = MSC, number = SG}
 
+  , mkParadigm
+  , getTense
   -- * Nominals
   , noun
   , adjective
@@ -85,6 +88,7 @@ module NLP.Morphology.PT (
   --
   -- >>> putTxtLn $ personal "falar" IPRS P1
   -- √FAL-A-IPRS-P1/SG
+  , putParadigm
   ) where
 
 import           NLP.Morphology.PT.Common

@@ -1,9 +1,10 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE FlexibleInstances #-}
 
 module NLP.Morphology.PT.Verb (
     mkParadigm
-  , putParadigm
   , getTense
+  , mkVerb
   , Personal(..)
   , Impersonal(..)
   , Nominal(..)
@@ -11,7 +12,6 @@ module NLP.Morphology.PT.Verb (
 
 import           Data.Text                      (Text)
 import qualified Data.Text                      as T
-import qualified Data.Text.IO                   as TIO
 import           NLP.Morphology.PT.Verb.Base
 import           NLP.Morphology.PT.Verb.Regular
 import           NLP.Morphology.Txt
@@ -26,9 +26,6 @@ mkParadigm c = mconcat [ personalForms
   personalForms   = [[toComp $ Pers c (mkRoot c) (getThematicVowel c) m p | p <- bounds ] | m <- bounds]
   nominalForms    = [[Nom c (mkRoot c) (getThematicVowel c) m g n | g <- bounds, n <- bounds ] | m <- bounds]
 
-putParadigm :: Text -> IO ()
-putParadigm = TIO.putStrLn . txt . (mkVerb <$$>) . mkParadigm
-
 class GetTense a where
     getTense :: [[VStructure]] -> a -> [VStructure]
 
@@ -40,3 +37,23 @@ instance GetTense Impersonal where
 
 instance GetTense Nominal where
     getTense p _ = last p
+
+data Verb
+  = Verb { structure :: VStructure
+         , deep      :: [Morpheme]
+         , shallow   :: [Morpheme]
+         , orth      :: Text
+         }
+  deriving (Show, Eq)
+
+instance Txt Verb where
+  txt (Verb st d s o) = T.intercalate "\t" [txt st, txt d, txt s, txt o]
+
+instance Txt [Verb] where
+  txt ts = T.intercalate "\n" (fmap txt ts)
+
+instance Txt [[Verb]] where
+  txt ts = T.intercalate "\n\n" (fmap txt ts)
+
+mkVerb :: VStructure -> Verb
+mkVerb s = Verb s (deepV s) (shallowV s) (orthV s)

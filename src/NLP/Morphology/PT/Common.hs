@@ -45,7 +45,7 @@ instance Txt Person where
 
 data Root
   = Root { rootType :: RootType
-         , root :: Text
+         , root     :: Text
          }
   deriving (Show, Eq)
 
@@ -138,3 +138,6 @@ range = [minBound .. maxBound]
 
 getRoot :: Citation -> Text
 getRoot = T.dropEnd 2 . T.toUpper
+
+(<$$>) :: (Functor f1, Functor f2) => (a -> b) -> f1 (f2 a) -> f1 (f2 b)
+(<$$>) = fmap . fmap

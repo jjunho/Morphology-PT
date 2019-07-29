@@ -91,7 +91,12 @@ module NLP.Morphology.PT (
   , putParadigm
   ) where
 
+import           Data.Text                 (Text)
+import qualified Data.Text.IO              as TIO
 import           NLP.Morphology.PT.Common
 import           NLP.Morphology.PT.Nominal
 import           NLP.Morphology.PT.Verb
 import           NLP.Morphology.Txt
+
+putParadigm :: Text -> IO ()
+putParadigm = TIO.putStrLn . txt . (mkVerb <$$>) . mkParadigm

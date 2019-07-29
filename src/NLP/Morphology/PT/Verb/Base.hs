@@ -5,7 +5,6 @@ module NLP.Morphology.PT.Verb.Base where
 
 import           Data.Text    (Text)
 import qualified Data.Text    as T
-import qualified Data.Text.IO as TIO
 import           Data.List          (elemIndex)
 import           NLP.Morphology.Txt
 
@@ -211,9 +210,6 @@ iprfm = ([I, STE, U, MOS, STES, M] !!) . fromEnum
 
 bounds :: (Enum a, Bounded a) => [a]
 bounds = [minBound .. maxBound]
-
-(<$$>) :: (Functor f1, Functor f2) => (a -> b) -> f1 (f2 a) -> f1 (f2 b)
-(<$$>) = fmap . fmap
 
 instance Txt ThematicVowel where
   txt = T.dropEnd 1 . tshow

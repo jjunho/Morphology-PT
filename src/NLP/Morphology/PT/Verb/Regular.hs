@@ -1,11 +1,9 @@
-{-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 module NLP.Morphology.PT.Verb.Regular where
 
 import           Data.Text    (Text)
 import qualified Data.Text    as T
-import qualified Data.Text.IO as TIO
 import           NLP.Morphology.PT.Verb.Base
 import           NLP.Morphology.PT.Verb.Irregular
 import           NLP.Morphology.Txt
@@ -119,23 +117,3 @@ circ v = case v of
 
 root0 :: VStructure -> VStructure
 root0 (Pers c (Root Cmp _) t m p) = Pers c (Root Cmp "") t m p
-
-data Verb
-  = Verb { structure :: VStructure
-         , deep      :: [Morpheme]
-         , shallow   :: [Morpheme]
-         , orth      :: Text
-         }
-  deriving (Show, Eq)
-
-instance Txt Verb where
-  txt (Verb st d s o) = T.intercalate "\t" [txt st, txt d, txt s, txt o]
-
-instance Txt [Verb] where
-  txt ts = T.intercalate "\n" (fmap txt ts)
-
-instance Txt [[Verb]] where
-  txt ts = T.intercalate "\n\n" (fmap txt ts)
-
-mkVerb :: VStructure -> Verb
-mkVerb s = Verb s (deepV s) (shallowV s) (orthV s)

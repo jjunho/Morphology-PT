@@ -10,11 +10,14 @@ import           NLP.Morphology.PT.Verb.Base
 import           NLP.Morphology.PT.Verb.Irregular
 import           NLP.Morphology.Txt
 
-toComp :: VStructure -> VStructure
-toComp tc = case toCompI tc of
+toCompR :: VStructure -> VStructure
+toCompR tc = case tc of
   Pers c r t IFUT p -> Comp c (Impr c r t INF) (Pers "haver" (Root Cmp "hav") E' IPRS p)
   Pers c r t IFPR p -> Comp c (Impr c r t INF) (Pers "haver" (Root Cmp "hav") E' IIPF p)
   _ -> tc
+
+toComp :: VStructure -> VStructure
+toComp = toCompR . toCompI
 
 deepV :: VStructure -> [Morpheme]
 deepV d = case d of

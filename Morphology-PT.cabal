@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 48d29393b3dfd03704315533b0a186d223ce7c70c3d90329a6c5a2e186223f11
+-- hash: 6c4ed4a94ea492d508d3f8eeaa01b7c312ca7ce5f60f3e8f73c73c2fb1b768bf
 
 name:           Morphology-PT
 version:        0.1.0.0
@@ -38,7 +38,6 @@ library
       NLP.Morphology.PT.Verb
       NLP.Morphology.PT.Verb.Base
       NLP.Morphology.PT.Verb.Irregular
-      NLP.Morphology.PT.Verb.Morphemes
       NLP.Morphology.PT.Verb.Regular
       NLP.Morphology.Txt
   other-modules:

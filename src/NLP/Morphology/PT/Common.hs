@@ -44,13 +44,27 @@ instance Txt Person where
   txt p6 = (\(p, n) -> T.intercalate "/" [tshow p, tshow n]) $ fromP6 p6
 
 data Root
-  = Root Text
+  = Root { rootType :: RootType
+         , root     :: Text
+         }
+  deriving (Show, Eq)
+
+data RootType
+  = Reg
+  | Irr
+  | CQU
+  | QUC
+  | GGU
+  | GUG
+  | CÇ
+  | ÇC
+  | GJ
   deriving (Show, Eq)
 
 instance Txt Root where
-  txt (Root r) = case r of
+  txt r = case root r of
     "" -> "∅"
-    _  -> T.toUpper r
+    _  -> T.toUpper $ root r
 
 data Affix
   = Prefix Text
@@ -121,3 +135,9 @@ class Orth a where
 
 range :: (Bounded a, Enum a) => [a]
 range = [minBound .. maxBound]
+
+getRoot :: Citation -> Text
+getRoot = T.dropEnd 2 . T.toUpper
+
+(<$$>) :: (Functor f1, Functor f2) => (a -> b) -> f1 (f2 a) -> f1 (f2 b)
+(<$$>) = fmap . fmap

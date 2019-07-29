@@ -29,26 +29,36 @@ data MoodTense
 instance Txt MoodTense where
   txt = tshow
 
+toRoot :: Citation -> Root
+toRoot = Root . T.init . T.init
+
+toThematicVowel :: Citation -> ThematicVowel
+toThematicVowel = toTV . T.takeEnd 1 . T.init
+
+
 impersonal :: Citation -> MoodTense -> VStructure
-impersonal c = Imp (toRoot c) (toThematicVowel c)
+impersonal c = Imp c (toRoot c) (toThematicVowel c)
 
 personal :: Citation -> MoodTense -> PersonNumber -> VStructure
-personal c = Prs (toRoot c) (toThematicVowel c)
+personal c = Prs c (toRoot c) (toThematicVowel c)
 
 participle :: Citation -> Gender -> Number -> VStructure
-participle c = Prt (toRoot c) (toThematicVowel c) PRT
+participle c = Prt c (toRoot c) (toThematicVowel c) PRT
 
 data VStructure
-  = Imp { root          :: Root
+  = Imp { citation      :: Citation
+        , root          :: Root
         , thematicVowel :: ThematicVowel
         , moodTense     :: MoodTense
         }
-  | Prs { root          :: Root
+  | Prs { citation      :: Citation
+        , root          :: Root
         , thematicVowel :: ThematicVowel
         , moodTense     :: MoodTense
         , personNumber  :: PersonNumber
   }
-  | Prt { root          :: Root
+  | Prt { citation      :: Citation
+        , root          :: Root
         , thematicVowel :: ThematicVowel
         , moodTense     :: MoodTense
         , gender        :: Gender
@@ -57,10 +67,4 @@ data VStructure
   deriving (Show, Eq)
 
 instance Txt VStructure where
-  txt (Prs (Root r) t m p) = T.intercalate "-" ["√" <> T.toUpper r, txt t, txt m, txt p]
-
-toRoot :: Citation -> Root
-toRoot = Root . T.init . T.init
-
-toThematicVowel :: Citation -> ThematicVowel
-toThematicVowel = toTV . T.takeEnd 1 . T.init
+  txt (Prs c (Root r) t m p) = T.intercalate "-" ["√" <> T.toUpper r, txt t, txt m, txt p]

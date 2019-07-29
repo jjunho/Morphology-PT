@@ -77,6 +77,7 @@ orthV o = case o of
   Pers c (Root Cmp "hav") E' mt@IPRS P2 -> oo [L "ás"]
   Pers c (Root Cmp "hav") E' mt@IPRS P3 -> oo [L "á"]
   Pers c (Root Cmp "hav") E' mt@IPRS P6 -> oo [L "ão"]
+  Pers c (Root Cmp "hav") E' IIPF P4 -> oo [L "íamos"]
   Pers c (Root Cmp "hav") E' IIPF P5 -> oo [L "íeis"]
   Pers c (Root Cmp "hav") E' mt _ -> oo $ tail $ shallowV o
   Pers c r A' mt@IIPF pn@P4 -> oo [morph r, acute A, VA, morph pn]

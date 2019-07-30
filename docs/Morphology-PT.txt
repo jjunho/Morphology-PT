@@ -22,212 +22,6 @@ class Txt a
 txt :: Txt a => a -> Text
 instance NLP.Morphology.Txt.Txt Data.Text.Internal.Text
 
-module NLP.Morphology.PT.Verb.Base
-type Citation = Text
-data ThematicVowel
-A' :: ThematicVowel
-E' :: ThematicVowel
-I' :: ThematicVowel
-O' :: ThematicVowel
-U' :: ThematicVowel
-Z' :: ThematicVowel
-data Impersonal
-INF :: Impersonal
-GER :: Impersonal
-data Personal
-IPRS :: Personal
-IPRF :: Personal
-IIPF :: Personal
-IPPF :: Personal
-IFUT :: Personal
-IFPR :: Personal
-SPRS :: Personal
-SIPF :: Personal
-SFUT :: Personal
-IMPA :: Personal
-IMPN :: Personal
-INFP :: Personal
-data Nominal
-PPP :: Nominal
-data PersonNumber
-P1 :: PersonNumber
-P2 :: PersonNumber
-P3 :: PersonNumber
-P4 :: PersonNumber
-P5 :: PersonNumber
-P6 :: PersonNumber
-data Gender
-MSC :: Gender
-FEM :: Gender
-data Number
-SG :: Number
-PL :: Number
-data GenderNumber
-MS :: GenderNumber
-FS :: GenderNumber
-MP :: GenderNumber
-FP :: GenderNumber
-data Morpheme
-A :: Morpheme
-E :: Morpheme
-I :: Morpheme
-O :: Morpheme
-U :: Morpheme
-S :: Morpheme
-MOS :: Morpheme
-IS :: Morpheme
-M :: Morpheme
-STE :: Morpheme
-STES :: Morpheme
-DES :: Morpheme
-RA :: Morpheme
-RE :: Morpheme
-VA :: Morpheme
-VE :: Morpheme
-SE :: Morpheme
-R :: Morpheme
-NDO :: Morpheme
-D :: Morpheme
-Z :: Morpheme
-C :: Morpheme
-LV :: Morpheme
-MRoot :: Text -> Morpheme
-L :: Text -> Morpheme
-data Root
-Root :: RootType -> Text -> Root
-[rootType] :: Root -> RootType
-[root] :: Root -> Text
-data RootType
-Reg :: RootType
-Cmp :: RootType
-Irr :: RootType
-CQU :: RootType
-QUC :: RootType
-GGU :: RootType
-GUG :: RootType
-CÇ :: RootType
-ÇC :: RootType
-GJ :: RootType
-getRoot :: Citation -> Text
-getThematicVowel :: Citation -> ThematicVowel
-mkRoot :: Citation -> Root
-orthRoot :: Root -> Text
-class Morph a
-morph :: Morph a => a -> Morpheme
-allom :: Morph a => a -> Morpheme
-zerom :: Morph a => a -> Morpheme
-doRoot :: Root -> Text
-iprfm :: PersonNumber -> Morpheme
-bounds :: (Enum a, Bounded a) => [a]
-data VStructure
-Pers :: Citation -> Root -> ThematicVowel -> Personal -> PersonNumber -> VStructure
-Impr :: Citation -> Root -> ThematicVowel -> Impersonal -> VStructure
-Nom :: Citation -> Root -> ThematicVowel -> Nominal -> Gender -> Number -> VStructure
-Comp :: Citation -> VStructure -> VStructure -> VStructure
-instance GHC.Classes.Eq NLP.Morphology.PT.Verb.Base.VStructure
-instance GHC.Show.Show NLP.Morphology.PT.Verb.Base.VStructure
-instance GHC.Classes.Eq NLP.Morphology.PT.Verb.Base.Root
-instance GHC.Show.Show NLP.Morphology.PT.Verb.Base.Root
-instance GHC.Classes.Eq NLP.Morphology.PT.Verb.Base.RootType
-instance GHC.Show.Show NLP.Morphology.PT.Verb.Base.RootType
-instance GHC.Classes.Eq NLP.Morphology.PT.Verb.Base.Morpheme
-instance GHC.Read.Read NLP.Morphology.PT.Verb.Base.Morpheme
-instance GHC.Show.Show NLP.Morphology.PT.Verb.Base.Morpheme
-instance GHC.Enum.Bounded NLP.Morphology.PT.Verb.Base.GenderNumber
-instance GHC.Enum.Enum NLP.Morphology.PT.Verb.Base.GenderNumber
-instance GHC.Classes.Eq NLP.Morphology.PT.Verb.Base.GenderNumber
-instance GHC.Show.Show NLP.Morphology.PT.Verb.Base.GenderNumber
-instance GHC.Enum.Bounded NLP.Morphology.PT.Verb.Base.Number
-instance GHC.Enum.Enum NLP.Morphology.PT.Verb.Base.Number
-instance GHC.Classes.Eq NLP.Morphology.PT.Verb.Base.Number
-instance GHC.Show.Show NLP.Morphology.PT.Verb.Base.Number
-instance GHC.Enum.Bounded NLP.Morphology.PT.Verb.Base.Gender
-instance GHC.Enum.Enum NLP.Morphology.PT.Verb.Base.Gender
-instance GHC.Classes.Eq NLP.Morphology.PT.Verb.Base.Gender
-instance GHC.Show.Show NLP.Morphology.PT.Verb.Base.Gender
-instance GHC.Enum.Bounded NLP.Morphology.PT.Verb.Base.PersonNumber
-instance GHC.Enum.Enum NLP.Morphology.PT.Verb.Base.PersonNumber
-instance GHC.Classes.Eq NLP.Morphology.PT.Verb.Base.PersonNumber
-instance GHC.Show.Show NLP.Morphology.PT.Verb.Base.PersonNumber
-instance GHC.Enum.Bounded NLP.Morphology.PT.Verb.Base.Nominal
-instance GHC.Enum.Enum NLP.Morphology.PT.Verb.Base.Nominal
-instance GHC.Classes.Eq NLP.Morphology.PT.Verb.Base.Nominal
-instance GHC.Show.Show NLP.Morphology.PT.Verb.Base.Nominal
-instance GHC.Enum.Bounded NLP.Morphology.PT.Verb.Base.Personal
-instance GHC.Enum.Enum NLP.Morphology.PT.Verb.Base.Personal
-instance GHC.Classes.Eq NLP.Morphology.PT.Verb.Base.Personal
-instance GHC.Show.Show NLP.Morphology.PT.Verb.Base.Personal
-instance GHC.Enum.Bounded NLP.Morphology.PT.Verb.Base.Impersonal
-instance GHC.Enum.Enum NLP.Morphology.PT.Verb.Base.Impersonal
-instance GHC.Classes.Eq NLP.Morphology.PT.Verb.Base.Impersonal
-instance GHC.Show.Show NLP.Morphology.PT.Verb.Base.Impersonal
-instance GHC.Enum.Bounded NLP.Morphology.PT.Verb.Base.ThematicVowel
-instance GHC.Enum.Enum NLP.Morphology.PT.Verb.Base.ThematicVowel
-instance GHC.Classes.Eq NLP.Morphology.PT.Verb.Base.ThematicVowel
-instance GHC.Show.Show NLP.Morphology.PT.Verb.Base.ThematicVowel
-instance NLP.Morphology.Txt.Txt NLP.Morphology.PT.Verb.Base.VStructure
-instance NLP.Morphology.PT.Verb.Base.Morph NLP.Morphology.PT.Verb.Base.Root
-instance NLP.Morphology.PT.Verb.Base.Morph NLP.Morphology.PT.Verb.Base.ThematicVowel
-instance NLP.Morphology.PT.Verb.Base.Morph NLP.Morphology.PT.Verb.Base.Personal
-instance NLP.Morphology.PT.Verb.Base.Morph NLP.Morphology.PT.Verb.Base.Impersonal
-instance NLP.Morphology.PT.Verb.Base.Morph NLP.Morphology.PT.Verb.Base.Nominal
-instance NLP.Morphology.PT.Verb.Base.Morph NLP.Morphology.PT.Verb.Base.PersonNumber
-instance NLP.Morphology.PT.Verb.Base.Morph NLP.Morphology.PT.Verb.Base.Gender
-instance NLP.Morphology.PT.Verb.Base.Morph NLP.Morphology.PT.Verb.Base.Number
-instance NLP.Morphology.Txt.Txt NLP.Morphology.PT.Verb.Base.Root
-instance NLP.Morphology.Txt.Txt NLP.Morphology.PT.Verb.Base.Morpheme
-instance NLP.Morphology.Txt.Txt [NLP.Morphology.PT.Verb.Base.Morpheme]
-instance NLP.Morphology.Txt.Txt [[NLP.Morphology.PT.Verb.Base.Morpheme]]
-instance NLP.Morphology.Txt.Txt [[[NLP.Morphology.PT.Verb.Base.Morpheme]]]
-instance NLP.Morphology.Txt.Txt NLP.Morphology.PT.Verb.Base.ThematicVowel
-
-module NLP.Morphology.PT.Verb.Irregular
-shallowI :: VStructure -> VStructure
-toCompI :: VStructure -> VStructure
-
-module NLP.Morphology.PT.Verb.Regular
-toCompR :: VStructure -> VStructure
-toComp :: VStructure -> VStructure
-deepV :: VStructure -> [Morpheme]
-shallowV :: VStructure -> [Morpheme]
-minusS :: [Morpheme] -> [Morpheme]
-orthV :: VStructure -> Text
-minus0 :: [Morpheme] -> [Morpheme]
-acute :: Morpheme -> Morpheme
-circ :: Morpheme -> Morpheme
-root0 :: VStructure -> VStructure
-
-module NLP.Morphology.PT.Verb
-mkParadigm :: Text -> [[VStructure]]
-getTense :: GetTense a => [[VStructure]] -> a -> [VStructure]
-mkVerb :: VStructure -> Verb
-data Personal
-IPRS :: Personal
-IPRF :: Personal
-IIPF :: Personal
-IPPF :: Personal
-IFUT :: Personal
-IFPR :: Personal
-SPRS :: Personal
-SIPF :: Personal
-SFUT :: Personal
-IMPA :: Personal
-IMPN :: Personal
-INFP :: Personal
-data Impersonal
-INF :: Impersonal
-GER :: Impersonal
-data Nominal
-PPP :: Nominal
-instance GHC.Classes.Eq NLP.Morphology.PT.Verb.Verb
-instance GHC.Show.Show NLP.Morphology.PT.Verb.Verb
-instance NLP.Morphology.Txt.Txt NLP.Morphology.PT.Verb.Verb
-instance NLP.Morphology.Txt.Txt [NLP.Morphology.PT.Verb.Verb]
-instance NLP.Morphology.Txt.Txt [[NLP.Morphology.PT.Verb.Verb]]
-instance NLP.Morphology.PT.Verb.GetTense NLP.Morphology.PT.Verb.Base.Personal
-instance NLP.Morphology.PT.Verb.GetTense NLP.Morphology.PT.Verb.Base.Impersonal
-instance NLP.Morphology.PT.Verb.GetTense NLP.Morphology.PT.Verb.Base.Nominal
-
 module NLP.Morphology.PT.Common
 type Citation = Text
 data Gender
@@ -254,6 +48,7 @@ Root :: RootType -> Text -> Root
 [root] :: Root -> Text
 data RootType
 Reg :: RootType
+Cmp :: RootType
 Irr :: RootType
 CQU :: RootType
 QUC :: RootType
@@ -319,6 +114,158 @@ instance NLP.Morphology.Txt.Txt NLP.Morphology.PT.Common.Root
 instance NLP.Morphology.Txt.Txt NLP.Morphology.PT.Common.Person
 instance NLP.Morphology.Txt.Txt NLP.Morphology.PT.Common.Number
 instance NLP.Morphology.Txt.Txt NLP.Morphology.PT.Common.Gender
+
+module NLP.Morphology.PT.Verb.Base
+data Impersonal
+INF :: Impersonal
+GER :: Impersonal
+data Personal
+IPRS :: Personal
+IPRF :: Personal
+IIPF :: Personal
+IPPF :: Personal
+IFUT :: Personal
+IFPR :: Personal
+SPRS :: Personal
+SIPF :: Personal
+SFUT :: Personal
+IMPA :: Personal
+IMPN :: Personal
+INFP :: Personal
+data NominalVerb
+PPP :: NominalVerb
+data GenderNumber
+MS :: GenderNumber
+FS :: GenderNumber
+MP :: GenderNumber
+FP :: GenderNumber
+data Morpheme
+A :: Morpheme
+E :: Morpheme
+I :: Morpheme
+O :: Morpheme
+U :: Morpheme
+S :: Morpheme
+MOS :: Morpheme
+IS :: Morpheme
+M :: Morpheme
+STE :: Morpheme
+STES :: Morpheme
+DES :: Morpheme
+RA :: Morpheme
+RE :: Morpheme
+VA :: Morpheme
+VE :: Morpheme
+SE :: Morpheme
+R :: Morpheme
+NDO :: Morpheme
+D :: Morpheme
+Z :: Morpheme
+C :: Morpheme
+LV :: Morpheme
+MRoot :: Text -> Morpheme
+L :: Text -> Morpheme
+getThematicVowel :: Citation -> ThematicVowel
+mkRoot :: Citation -> Root
+orthRoot :: Root -> Text
+class Morph a
+morph :: Morph a => a -> Morpheme
+allom :: Morph a => a -> Morpheme
+zerom :: Morph a => a -> Morpheme
+doRoot :: Root -> Text
+iprfm :: Person -> Morpheme
+bounds :: (Enum a, Bounded a) => [a]
+data VStructure
+Pers :: Citation -> Root -> ThematicVowel -> Personal -> Person -> VStructure
+Impr :: Citation -> Root -> ThematicVowel -> Impersonal -> VStructure
+Nom :: Citation -> Root -> ThematicVowel -> NominalVerb -> Gender -> Number -> VStructure
+Comp :: Citation -> VStructure -> VStructure -> VStructure
+instance GHC.Classes.Eq NLP.Morphology.PT.Verb.Base.VStructure
+instance GHC.Show.Show NLP.Morphology.PT.Verb.Base.VStructure
+instance GHC.Classes.Eq NLP.Morphology.PT.Verb.Base.Morpheme
+instance GHC.Read.Read NLP.Morphology.PT.Verb.Base.Morpheme
+instance GHC.Show.Show NLP.Morphology.PT.Verb.Base.Morpheme
+instance GHC.Enum.Bounded NLP.Morphology.PT.Verb.Base.GenderNumber
+instance GHC.Enum.Enum NLP.Morphology.PT.Verb.Base.GenderNumber
+instance GHC.Classes.Eq NLP.Morphology.PT.Verb.Base.GenderNumber
+instance GHC.Show.Show NLP.Morphology.PT.Verb.Base.GenderNumber
+instance GHC.Enum.Bounded NLP.Morphology.PT.Verb.Base.NominalVerb
+instance GHC.Enum.Enum NLP.Morphology.PT.Verb.Base.NominalVerb
+instance GHC.Classes.Eq NLP.Morphology.PT.Verb.Base.NominalVerb
+instance GHC.Show.Show NLP.Morphology.PT.Verb.Base.NominalVerb
+instance GHC.Enum.Bounded NLP.Morphology.PT.Verb.Base.Personal
+instance GHC.Enum.Enum NLP.Morphology.PT.Verb.Base.Personal
+instance GHC.Classes.Eq NLP.Morphology.PT.Verb.Base.Personal
+instance GHC.Show.Show NLP.Morphology.PT.Verb.Base.Personal
+instance GHC.Enum.Bounded NLP.Morphology.PT.Verb.Base.Impersonal
+instance GHC.Enum.Enum NLP.Morphology.PT.Verb.Base.Impersonal
+instance GHC.Classes.Eq NLP.Morphology.PT.Verb.Base.Impersonal
+instance GHC.Show.Show NLP.Morphology.PT.Verb.Base.Impersonal
+instance NLP.Morphology.Txt.Txt NLP.Morphology.PT.Verb.Base.VStructure
+instance NLP.Morphology.PT.Verb.Base.Morph NLP.Morphology.PT.Common.Root
+instance NLP.Morphology.PT.Verb.Base.Morph NLP.Morphology.PT.Common.ThematicVowel
+instance NLP.Morphology.PT.Verb.Base.Morph NLP.Morphology.PT.Verb.Base.Personal
+instance NLP.Morphology.PT.Verb.Base.Morph NLP.Morphology.PT.Verb.Base.Impersonal
+instance NLP.Morphology.PT.Verb.Base.Morph NLP.Morphology.PT.Verb.Base.NominalVerb
+instance NLP.Morphology.PT.Verb.Base.Morph NLP.Morphology.PT.Common.Person
+instance NLP.Morphology.PT.Verb.Base.Morph NLP.Morphology.PT.Common.Gender
+instance NLP.Morphology.PT.Verb.Base.Morph NLP.Morphology.PT.Common.Number
+instance NLP.Morphology.Txt.Txt NLP.Morphology.PT.Verb.Base.Morpheme
+instance NLP.Morphology.Txt.Txt [NLP.Morphology.PT.Verb.Base.Morpheme]
+instance NLP.Morphology.Txt.Txt [[NLP.Morphology.PT.Verb.Base.Morpheme]]
+instance NLP.Morphology.Txt.Txt [[[NLP.Morphology.PT.Verb.Base.Morpheme]]]
+
+module NLP.Morphology.PT.Verb.Irregular
+shallowI :: VStructure -> VStructure
+toCompI :: VStructure -> VStructure
+
+module NLP.Morphology.PT.Verb.Regular
+toCompR :: VStructure -> VStructure
+toComp :: VStructure -> VStructure
+deepR :: VStructure -> [Morpheme]
+shallowR :: VStructure -> [Morpheme]
+shallowR' :: VStructure -> [Morpheme]
+minusS :: [Morpheme] -> [Morpheme]
+orth :: VStructure -> Text
+orthR :: VStructure -> Text
+minus0 :: [Morpheme] -> [Morpheme]
+acute :: Morpheme -> Morpheme
+circ :: Morpheme -> Morpheme
+root0 :: VStructure -> VStructure
+
+module NLP.Morphology.PT.Verb
+mkParadigm :: Text -> [[VStructure]]
+getTense :: GetTense a => [[VStructure]] -> a -> [VStructure]
+mkVerb :: VStructure -> Verb
+personal :: Citation -> Personal -> Person -> VStructure
+impersonal :: Citation -> Impersonal -> VStructure
+participle :: Citation -> NominalVerb -> Gender -> Number -> VStructure
+data Personal
+IPRS :: Personal
+IPRF :: Personal
+IIPF :: Personal
+IPPF :: Personal
+IFUT :: Personal
+IFPR :: Personal
+SPRS :: Personal
+SIPF :: Personal
+SFUT :: Personal
+IMPA :: Personal
+IMPN :: Personal
+INFP :: Personal
+data Impersonal
+INF :: Impersonal
+GER :: Impersonal
+data NominalVerb
+PPP :: NominalVerb
+instance GHC.Classes.Eq NLP.Morphology.PT.Verb.Verb
+instance GHC.Show.Show NLP.Morphology.PT.Verb.Verb
+instance NLP.Morphology.Txt.Txt NLP.Morphology.PT.Verb.Verb
+instance NLP.Morphology.Txt.Txt [NLP.Morphology.PT.Verb.Verb]
+instance NLP.Morphology.Txt.Txt [[NLP.Morphology.PT.Verb.Verb]]
+instance NLP.Morphology.PT.Verb.GetTense NLP.Morphology.PT.Verb.Base.Personal
+instance NLP.Morphology.PT.Verb.GetTense NLP.Morphology.PT.Verb.Base.Impersonal
+instance NLP.Morphology.PT.Verb.GetTense NLP.Morphology.PT.Verb.Base.NominalVerb
 
 module NLP.Morphology.PT.Nominal.Base
 data NStructure
@@ -392,8 +339,8 @@ INFP :: Personal
 data Impersonal
 INF :: Impersonal
 GER :: Impersonal
-data Nominal
-PPP :: Nominal
+data NominalVerb
+PPP :: NominalVerb
 data Person
 P1 :: Person
 P2 :: Person

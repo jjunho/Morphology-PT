@@ -3,21 +3,11 @@
 
 module NLP.Morphology.PT.Verb.Base where
 
-import           Data.Text    (Text)
-import qualified Data.Text    as T
-import           Data.List          (elemIndex)
+import           Data.List                (elemIndex)
+import           Data.Text                (Text)
+import qualified Data.Text                as T
+import           NLP.Morphology.PT.Common
 import           NLP.Morphology.Txt
-
-type Citation = Text
-
-data ThematicVowel
-  = A'
-  | E'
-  | I'
-  | O'
-  | U'
-  | Z'
-  deriving (Show, Eq, Enum, Bounded)
 
 data Impersonal
   = INF
@@ -39,7 +29,7 @@ data Personal
   | INFP
   deriving (Show, Eq, Enum, Bounded)
 
-data Nominal
+data NominalVerb
   = PPP
   deriving (Show, Eq, Enum, Bounded)
 
@@ -60,25 +50,6 @@ data Nominal
 --   | GER
 --   | PPP
 --   deriving (Show, Eq, Enum, Bounded)
-
-data PersonNumber
-  = P1
-  | P2
-  | P3
-  | P4
-  | P5
-  | P6
-  deriving (Show, Eq, Enum, Bounded)
-
-data Gender
-  = MSC
-  | FEM
-  deriving (Show, Eq, Enum, Bounded)
-
-data Number
-  = SG
-  | PL
-  deriving (Show, Eq, Enum, Bounded)
 
 data GenderNumber
   = MS
@@ -114,28 +85,6 @@ data Morpheme
   | MRoot Text
   | L Text
   deriving (Show, Read, Eq)
-
-data Root
-  = Root { rootType :: RootType
-         , root     :: Text
-         }
-  deriving (Show, Eq)
-
-data RootType
-  = Reg
-  | Cmp
-  | Irr
-  | CQU
-  | QUC
-  | GGU
-  | GUG
-  | CÇ
-  | ÇC
-  | GJ
-  deriving (Show, Eq)
-
-getRoot :: Citation -> Text
-getRoot = T.dropEnd 2 . T.toUpper
 
 getThematicVowel :: Citation -> ThematicVowel
 getThematicVowel = maybe Z' toEnum . flip elemIndex "aeiou" . T.head . T.takeEnd 2 . T.toLower
@@ -192,10 +141,10 @@ instance Morph Personal where
 instance Morph Impersonal where
   morph = ([R, NDO] !!) . fromEnum
 
-instance Morph Nominal where
+instance Morph NominalVerb where
   morph = const D
 
-instance Morph PersonNumber where
+instance Morph Person where
   morph = ([Z, S, Z, MOS, IS, M] !!) . fromEnum
   allom = ([O, S, Z, MOS, DES, M] !!) . fromEnum
 
@@ -205,14 +154,11 @@ instance Morph Gender where
 instance Morph Number where
   morph = ([Z, S] !!) . fromEnum
 
-iprfm :: PersonNumber -> Morpheme
+iprfm :: Person -> Morpheme
 iprfm = ([I, STE, U, MOS, STES, M] !!) . fromEnum
 
 bounds :: (Enum a, Bounded a) => [a]
 bounds = [minBound .. maxBound]
-
-instance Txt ThematicVowel where
-  txt = T.dropEnd 1 . tshow
 
 instance Txt Morpheme where
   txt Z         = "∅"
@@ -230,13 +176,10 @@ instance Txt [[Morpheme]] where
 instance Txt [[[Morpheme]]] where
   txt ts = T.intercalate "\n\n" (fmap txt ts)
 
-instance Txt Root where
-  txt = root
-
 data VStructure
-  = Pers Citation Root ThematicVowel Personal   PersonNumber
+  = Pers Citation Root ThematicVowel Personal   Person
   | Impr Citation Root ThematicVowel Impersonal
-  | Nom  Citation Root ThematicVowel Nominal    Gender       Number
+  | Nom  Citation Root ThematicVowel NominalVerb    Gender       Number
   | Comp Citation VStructure VStructure
   deriving (Show, Eq)
 

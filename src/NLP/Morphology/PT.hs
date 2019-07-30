@@ -34,7 +34,7 @@ module NLP.Morphology.PT (
   -- * Types
     Personal(..)
   , Impersonal(..)
-  , Nominal(..)
+  , NominalVerb(..)
   , Person(..)
   , Gender(..)
   , Number(..)

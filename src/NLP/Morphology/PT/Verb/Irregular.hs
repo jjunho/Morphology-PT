@@ -3,10 +3,19 @@
 module NLP.Morphology.PT.Verb.Irregular where
 
 import           NLP.Morphology.PT.Verb.Base
+import           NLP.Morphology.PT.Common
 
 shallowI :: VStructure -> VStructure
-shallowI v = case v of
+shallowI v@(Pers c _ _ _ _) = case c of
+  "fazer" -> case v of
+    Pers _ _ t m@IPRS p@P1 -> Pers c (Root Irr "FAÇ") t m p
+    Pers _ _ t m@IPRF p    -> Pers c (Root Irr "FIZ") t m p
+    Pers _ _ t m@IPPF p    -> Pers c (Root Irr "FIZ") t m p
+    Pers _ _ t m@SIPF p    -> Pers c (Root Irr "FIZ") t m p
+    Pers _ _ t m@SFUT p    -> Pers c (Root Irr "FIZ") t m p
+    _                      -> v
   _ -> v
+shallowI v = v
 
 toCompI v = case v of
   Pers c (Root Reg "DIZ")  E' IFUT p -> Comp c (Impr c (Root Irr "D") I' INF)  (Pers "haver" (Root Cmp "hav") E' IPRS p)

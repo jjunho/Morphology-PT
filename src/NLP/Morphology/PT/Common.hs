@@ -51,6 +51,7 @@ data Root
 
 data RootType
   = Reg
+  | Cmp
   | Irr
   | CQU
   | QUC

@@ -2,8 +2,9 @@
 
 module NLP.Morphology.PT.Verb.Regular where
 
-import           Data.Text    (Text)
-import qualified Data.Text    as T
+import           Data.Text                        (Text)
+import qualified Data.Text                        as T
+import           NLP.Morphology.PT.Common
 import           NLP.Morphology.PT.Verb.Base
 import           NLP.Morphology.PT.Verb.Irregular
 import           NLP.Morphology.Txt
@@ -17,8 +18,8 @@ toCompR tc = case tc of
 toComp :: VStructure -> VStructure
 toComp = toCompR . toCompI
 
-deepV :: VStructure -> [Morpheme]
-deepV d = case d of
+deepR :: VStructure -> [Morpheme]
+deepR d = case d of
   Pers c r@(Root Cmp "hav") tv mt@IPRS P1    -> [morph r, morph tv, allom mt, iprfm P1]
   Pers c r@(Root Cmp "hav") tv mt@IPRS P2    -> [morph r, morph A', allom mt, morph P2]
   Pers c r@(Root Cmp "hav") tv mt@IPRS P3    -> [morph r, morph A', allom mt, morph P3]
@@ -32,13 +33,16 @@ deepV d = case d of
   Pers c r                  tv mt      pn    -> [morph r, morph tv, morph mt, morph pn]
   Impr c r                  tv mt            -> [morph r, morph tv, morph mt]
   Nom  c r                  tv mt      g n   -> [morph r, morph tv, morph mt, morph g, morph n]
-  Comp c v1                 v2               -> deepV v1 <> deepV v2
+  Comp c v1                 v2               -> deepR v1 <> deepR v2
 
-shallowV :: VStructure -> [Morpheme]
-shallowV s = case s of
-  Pers c (Root Cmp "hav") E' IPRS pn@P1 -> deepV s
+shallowR :: VStructure -> [Morpheme]
+shallowR = shallowR' . shallowI
+
+shallowR' :: VStructure -> [Morpheme]
+shallowR' s = case s of
+  Pers c (Root Cmp "hav") E' IPRS pn@P1 -> deepR s
   Pers c (Root Cmp "hav") E' IIPF P5 -> [L "h", I, E, IS]
-  Pers c (Root Cmp "hav") E' IIPF _ -> deepV s
+  Pers c (Root Cmp "hav") E' IIPF _ -> deepR s
   Pers c r A' mt@IPRS pn@P1 -> [morph r, Z,        morph mt, allom pn]
   Pers c r _  mt@IPRS pn@P1 -> [allom r, Z,        morph mt, allom pn]
   Pers c r I' mt@IPRS pn@P4 -> [morph r, I,        morph mt, morph pn]
@@ -55,29 +59,32 @@ shallowV s = case s of
   Pers c r tv mt@SFUT pn@P5 -> [morph r, morph tv, morph mt, allom pn]
   Pers c r tv mt@INFP pn@P5 -> [morph r, morph tv, morph mt, allom pn]
   Pers c r tv mt@IMPA pn@P1 -> [L "-"]
-  Pers c r tv mt@IMPA pn@P2 -> minusS $ shallowV (Pers c r tv IPRS P2)
-  Pers c r tv mt@IMPA pn@P5 -> minusS $ shallowV (Pers c r tv IPRS P5)
-  Pers c r tv mt@IMPA pn@P3 -> shallowV (Pers c r tv SPRS P3)
-  Pers c r tv mt@IMPA pn@P4 -> shallowV (Pers c r tv SPRS P4)
-  Pers c r tv mt@IMPA pn@P6 -> shallowV (Pers c r tv SPRS P6)
+  Pers c r tv mt@IMPA pn@P2 -> minusS $ shallowR' (Pers c r tv IPRS P2)
+  Pers c r tv mt@IMPA pn@P5 -> minusS $ shallowR' (Pers c r tv IPRS P5)
+  Pers c r tv mt@IMPA pn@P3 -> shallowR' (Pers c r tv SPRS P3)
+  Pers c r tv mt@IMPA pn@P4 -> shallowR' (Pers c r tv SPRS P4)
+  Pers c r tv mt@IMPA pn@P6 -> shallowR' (Pers c r tv SPRS P6)
   Pers c r tv mt@IMPN pn@P1 -> [L "-"]
-  Pers c r tv mt@IMPN pn    -> shallowV (Pers c r tv SPRS pn)
+  Pers c r tv mt@IMPN pn    -> shallowR' (Pers c r tv SPRS pn)
   Nom  c r E' mt      g   n -> [morph r, I, morph mt, morph g, morph n]
-  Comp c s1 s2 -> shallowV s1 <> shallowV s2
-  _ -> deepV s
+  Comp c s1 s2 -> shallowR' s1 <> shallowR' s2
+  _ -> deepR s
 
 minusS :: [Morpheme] -> [Morpheme]
 minusS [r, t, m, S]  = [r, t, m, Z]
 minusS [r, t, m, IS] = [r, t, m, I]
 
-orthV :: VStructure -> Text
-orthV o = case o of
+orth :: VStructure -> Text
+orth = orthR . shallowI
+
+orthR :: VStructure -> Text
+orthR o = case o of
   Pers c (Root Cmp "hav") E' mt@IPRS P2 -> oo [L "ás"]
   Pers c (Root Cmp "hav") E' mt@IPRS P3 -> oo [L "á"]
   Pers c (Root Cmp "hav") E' mt@IPRS P6 -> oo [L "ão"]
   Pers c (Root Cmp "hav") E' IIPF P4 -> oo [L "íamos"]
   Pers c (Root Cmp "hav") E' IIPF P5 -> oo [L "íeis"]
-  Pers c (Root Cmp "hav") E' mt _ -> oo $ tail $ shallowV o
+  Pers c (Root Cmp "hav") E' mt _ -> oo $ tail $ shallowR' o
   Pers c r A' mt@IIPF pn@P4 -> oo [morph r, acute A, VA, morph pn]
   Pers c r A' mt@IIPF pn@P5 -> oo [morph r, acute A, VE, morph pn]
   Pers c r _  mt@IIPF pn@P4 -> oo [morph r, acute I, A, morph pn]
@@ -95,12 +102,12 @@ orthV o = case o of
   Pers c r tv mt@SFUT pn@P6 -> oo [morph r, morph tv, morph mt, LV, morph pn]
   Pers c r tv mt@INFP pn@P2 -> oo [morph r, morph tv, morph mt, LV, morph pn]
   Pers c r tv mt@INFP pn@P6 -> oo [morph r, morph tv, morph mt, LV, morph pn]
-  Pers c r tv mt@IMPN P1    -> oo $ shallowV o
-  Pers c r tv mt@IMPN pn    -> "não " <> (oo $ shallowV o)
-  Comp c s1 s2 -> orthV s1 <> orthV s2
-  _ -> oo (shallowV o)
+  Pers c r tv mt@IMPN P1    -> oo $ shallowR' o
+  Pers c r tv mt@IMPN pn    -> "não " <> oo (shallowR' o)
+  Comp c s1 s2 -> orthR s1 <> orthR s2
+  _ -> oo (shallowR o)
   where
-    oo ms = T.toLower $ T.concat $ txt <$> (minus0 ms)
+    oo ms = T.toLower $ T.concat $ txt <$> minus0 ms
 
 minus0 :: [Morpheme] -> [Morpheme]
 minus0 = filter (Z /=)
